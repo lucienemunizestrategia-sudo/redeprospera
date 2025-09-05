@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>O Segredo dos WhatsApps que Faturam - Prospera Rio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --azul-principal:#092040;
+      --azul-secundario:#00B7D7;
+      --amarelo-acento:#ECC203;
+      --cinza-neutro:#EFF1F3;
+      --azul-escuro:#021738;
+      --branco:#FFFFFF;
+      --verde-conversao:#4CAF50;
+      --vermelho-urgencia:#E53E3E;
+    }
+
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+    body{
+      font-family:'Open Sans',sans-serif;
+      background:linear-gradient(135deg,var(--cinza-neutro) 0%,var(--branco) 100%);
+      color:var(--azul-escuro);
+      line-height:1.6;
+      font-size:16px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .container{max-width:1200px;margin:0 auto;padding:0 15px}
+
+    /* HEADER — versão clean */
+    .header{
+      background:linear-gradient(135deg,var(--azul-principal) 0%,var(--azul-escuro) 100%);
+      color:var(--branco);
+      padding:1.25rem 0 1.4rem 0;
+      text-align:center;
+      box-shadow:0 2px 12px rgba(9,32,64,.25);
+    }
+
+    /* Logo centralizada (topo) */
+    .logo-container{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:10px;margin-bottom:.6rem;flex-wrap:wrap;
+    }
+    .logo{height:56px;width:auto;display:block;object-fit:contain;margin:0 auto 8px;}
+    .location-text{
+      font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;color:var(--amarelo-acento);letter-spacing:.12em;
+      text-align:center;
+    }
+
+    .header h1{
+      font-family:'Montserrat',sans-serif;font-size:clamp(22px,5vw,34px);font-weight:700;margin:.2rem 0 .25rem 0;line-height:1.18;
+    }
+    .header .subtitle{
+      font-family:'Montserrat',sans-serif;font-size:clamp(15px,4vw,22px);font-weight:600;color:var(--amarelo-acento);
+      margin-bottom:.35rem;
+    }
+    .header .description{
+      font-size:clamp(13px,3vw,16px);font-weight:400;opacity:.92;max-width:760px;margin:0 auto;
+    }
+
+    /* PROMO */
+    .promo{
+      background:linear-gradient(135deg,var(--amarelo-acento) 0%,#F4D40B 100%);
+      color:var(--azul-escuro);border-radius:14px;padding:.9rem 1rem;margin:1rem 0 1.2rem 0;text-align:center;box-shadow:0 4px 18px rgba(236,194,3,.25);
+      transition:max-height .3s ease, opacity .3s ease, padding .2s ease, margin .2s ease;overflow:hidden;
+    }
+
+    .promo strong{font-family:'Montserrat',sans-serif}
+
+    /* Nav */
+    .nav-container{background:var(--branco);box-shadow:0 2px 10px rgba(0,0,0,.08);position:sticky;top:0;z-index:100}
+    .nav{display:flex;flex-wrap:wrap;gap:8px;padding:.8rem 0;justify-content:center}
+    .nav-btn{
+      background:var(--cinza-neutro);border:2px solid var(--azul-secundario);color:var(--azul-escuro);
+      padding:7px 14px;border-radius:22px;cursor:pointer;transition:.25s;
+      font-family:'Open Sans',sans-serif;font-weight:700;font-size:12.5px;white-space:nowrap;
+      touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;
+    }
+    .nav-btn:hover,.nav-btn.active{background:var(--azul-secundario);color:var(--branco);transform:translateY(-1px);box-shadow:0 3px 12px rgba(0,183,215,.25)}
+
+    /* Search */
+    .search-container{text-align:center;margin:1.1rem 0 .8rem 0;padding:0 10px}
+    .search-input{
+      width:100%;max-width:560px;padding:12px 18px;border:2px solid var(--azul-secundario);
+      border-radius:25px;font-size:16px;font-family:'Open Sans',sans-serif;outline:none;transition:box-shadow .25s ease;
+    }
+    .search-input:focus{box-shadow:0 0 18px rgba(0,183,215,.25)}
+
+    /* Content */
+    .content{padding:.5rem 0 2rem 0}
+    .section{
+      background:var(--branco);margin-bottom:1rem;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.08);
+      overflow:hidden;transition:transform .25s ease;animation:fadeIn .5s ease-out;
+    }
+    .section:hover{transform:translateY(-2px)}
+    .section-header{
+      background:linear-gradient(135deg,var(--azul-principal) 0%,var(--azul-escuro) 100%);
+      color:var(--branco);padding:.8rem 1.1rem;display:flex;justify-content:space-between;align-items:center;
+      cursor:pointer;-webkit-tap-highlight-color:transparent;
+    }
+    .section-title{font-family:'Montserrat',sans-serif;font-size:clamp(16px,4vw,20px);font-weight:700;line-height:1.3}
+    .section-icon{font-size:18px;transition:transform .25s ease;flex-shrink:0;margin-left:10px}
+    .section.collapsed .section-icon{transform:rotate(180deg)}
+    .section-content{padding:1rem;display:block}
+    .section.collapsed .section-content{display:none}
+
+    .template-card{
+      background:var(--cinza-neutro);margin-bottom:.9rem;border-radius:12px;overflow:hidden;border-left:4px solid var(--azul-secundario);
+    }
+    .template-header{
+      background:var(--branco);padding:.9rem;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:1px solid var(--cinza-neutro);
+    }
+    .template-title{
+      font-family:'Montserrat',sans-serif;font-weight:700;color:var(--azul-principal);font-size:16px;line-height:1.4;flex:1;
+    }
+    .copy-btn{
+      background:var(--amarelo-acento);color:var(--azul-escuro);border:none;padding:8px 14px;border-radius:18px;cursor:pointer;transition:.2s;
+      font-family:'Open Sans',sans-serif;font-weight:700;font-size:13px;white-space:nowrap;flex-shrink:0;-webkit-user-select:none;user-select:none;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .copy-btn:hover{transform:translateY(-1px);box-shadow:0 3px 12px rgba(236,194,3,.28)}
+    .copy-btn:active{transform:scale(.96)}
+    .copy-btn.copied{background:var(--verde-conversao);color:var(--branco)}
+    .template-content{padding:1rem}
+    .template-text{
+      background:var(--branco);padding:1rem;border-radius:8px;white-space:pre-wrap;
+      font-family:'Open Sans',sans-serif;font-size:14px;line-height:1.6;margin-bottom:.8rem;border:1px solid #ddd;word-break:break-word;
+      -webkit-user-select:text;user-select:text;
+    }
+    .template-usage{
+      background:rgba(0,183,215,.08);padding:.7rem;border-radius:8px;font-size:13px;color:var(--azul-escuro);
+      border-left:3px solid var(--azul-secundario);line-height:1.4;
+    }
+    .usage-label{font-weight:700;color:var(--azul-principal)}
+
+    .template-tags{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap}
+    .tag{background:var(--amarelo-acento);color:var(--azul-escuro);padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;text-transform:uppercase}
+    .tag.urgencia{background:var(--vermelho-urgencia);color:var(--branco)}
+    .tag.conversao{background:var(--verde-conversao);color:var(--branco)}
+    .tag.social{background:var(--azul-secundario);color:var(--branco)}
+    .tag.fomo{background:#333;color:#fff}
+
+    .instructions{
+      background:linear-gradient(135deg,var(--amarelo-acento) 0%,#F5D800 100%);
+      color:var(--azul-escuro);padding:1rem;border-radius:14px;margin:1.1rem 0;box-shadow:0 6px 20px rgba(236,194,3,.24);
+      transition:max-height .3s ease, opacity .3s ease, padding .2s ease, margin .2s ease;overflow:hidden;
+    }
+    .instructions h3{font-family:'Montserrat',sans-serif;margin-bottom:.5rem;font-size:clamp(18px,4vw,22px);font-weight:700;line-height:1.3}
+    .instructions ol{margin-left:1.2rem}
+    .instructions li{margin-bottom:.35rem;font-weight:700;font-size:14px;line-height:1.5}
+    .instructions .golden-rule{margin-top:.6rem;font-weight:700;font-size:15px;text-align:center;background:rgba(255,255,255,.32);padding:.6rem;border-radius:8px}
+
+    /* Classe para esconder banners quando filtrar */
+    .promo.hidden, .instructions.hidden{max-height:0;padding:0;margin:0;opacity:0}
+
+    .footer{background:var(--azul-principal);color:var(--branco);text-align:center;padding:1.6rem 1rem;margin-top:2rem}
+    .footer-logo-container{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:10px;margin-bottom:.8rem;flex-wrap:wrap;
+    }
+    .footer-logo{height:40px;width:auto;display:block;object-fit:contain;margin:0 auto 8px;}
+    .footer-location{font-family:'Montserrat',sans-serif;font-size:12px;color:var(--amarelo-acento)}
+    .footer p{font-size:14px;line-height:1.5}
+    .footer .main-text{font-weight:700;margin-bottom:.4rem}
+
+    @media (max-width:768px){
+      .container{padding:0 10px}
+      .logo{height:52px}
+      .nav{gap:6px;padding:.7rem 0}
+      .nav-btn{padding:6px 12px;font-size:12px}
+      .template-header{flex-direction:column;align-items:stretch;gap:10px}
+      .copy-btn{align-self:center;width:fit-content}
+      .section-header{padding:.7rem 1rem}
+      .template-text{font-size:13px;padding:.8rem}
+      .logo-container,.footer-logo-container{gap:5px}
+      .location-text,.footer-location{font-size:12px}
+    }
+    @media (max-width:480px){
+      .header{padding:1rem 0 1.1rem 0}
+      .nav-btn{padding:5px 10px;font-size:11px}
+      .template-content{padding:.8rem}
+      .template-text{padding:.7rem;font-size:12px}
+      .template-usage{padding:.55rem;font-size:12px}
+      .instructions{padding:.9rem}
+      .instructions li{font-size:13px}
+    }
+
+    @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:var(--cinza-neutro)}
+    ::-webkit-scrollbar-thumb{background:var(--azul-secundario);border-radius:3px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--azul-principal)}
+    .copy-btn:active,.nav-btn:active,.section-header:active{transform:scale(.98)}
+
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--verde-conversao);color:var(--branco);
+      padding:10px 20px;border-radius:25px;font-weight:700;z-index:1000;opacity:0;transition:opacity .3s ease}
+    .toast.show{opacity:1}
+
+    /* Modal para iOS */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 12px;
+      margin: 20px;
+      max-width: 90%;
+      max-height: 70%;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      background: var(--azul-principal);
+      color: white;
+      padding: 1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .modal-content {
+      padding: 1rem;
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+
+    .modal-text {
+      background: var(--cinza-neutro);
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .modal-btn {
+      flex: 1;
+      min-width: 120px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-copy {
+      background: var(--verde-conversao);
+      color: white;
+    }
+
+    .btn-close {
+      background: var(--cinza-neutro);
+      color: var(--azul-escuro);
+    }
+
+    .modal-btn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <div class="logo-container">
+        <img id="logoTopo" class="logo"
+             src="https://lh3.googleusercontent.com/d/1x5sNkC9vd7CI78y0xdkWvgoadxPEMcIf=w800"
+             alt="Prospera Rio — Logomarca">
+        <div class="location-text">MARÉ · JACAREZINHO</div>
+      </div>
+      <h1>O Segredo dos WhatsApp que Faturam</h1>
+      <div class="subtitle">Como transformar conversa em dinheiro no bolso</div>
+      <div class="description">Templates práticos para empreendedores — simples, diretos e que vendem</div>
+    </div>
+  </div>
+
+  <div class="nav-container">
+    <div class="container">
+      <div class="nav">
+        <button class="nav-btn active" data-action="showAll">Todos</button>
+        <button class="nav-btn" data-action="primeiro-contato">Primeiro Contato</button>
+        <button class="nav-btn" data-action="apresentacao">Apresentação</button>
+        <button class="nav-btn" data-action="precos">Preços</button>
+        <button class="nav-btn" data-action="objecoes">Objeções</button>
+        <button class="nav-btn" data-action="fechamento">Fechamento</button>
+        <button class="nav-btn" data-action="follow-up">Follow-up</button>
+        <button class="nav-btn" data-action="pos-venda">Pós-venda</button>
+        <button class="nav-btn" data-action="ofertas">Ofertas</button>
+        <button class="nav-btn" data-action="fomo">FOMO</button>
+        <button class="nav-btn" data-action="tecnicas-avancadas">Técnicas Avançadas</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="promo"><strong>BÔNUS DA OFICINA:</strong> use as mensagens prontas, personalize com o nome e finalize com pergunta simples. Execução diária = vendas diárias.</div>
+
+    <div class="instructions">
+      <h3>Como usar (passo a passo claro)</h3>
+      <ol>
+        <li>Escolha o template da situação certa (primeiro contato, preço, objeção…).</li>
+        <li>Toque em "Copiar". Se não copiar, pressione e segure no texto e toque em "Copiar".</li>
+        <li>Cole no WhatsApp (em "Mensagem Salva" no WhatsApp Business).</li>
+        <li>Personalize: nome, necessidade, valores reais e prazos.</li>
+        <li>Finalize com pergunta binária: "Pix ou cartão?" "Guardo ou libero?"</li>
+      </ol>
+      <div class="golden-rule">Urgência verdadeira + prova real + pergunta simples = conversão.</div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Buscar templates..." id="searchInput">
+    </div>
+
+    <div class="content" id="content"></div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <div class="footer-logo-container">
+        <img id="logoRodape" class="footer-logo"
+             src="https://lh3.googleusercontent.com/d/1x5sNkC9vd7CI78y0xdkWvgoadxPEMcIf=w800"
+             alt="Prospera Rio — Logomarca">
+        <div class="footer-location">MARÉ · JACAREZINHO</div>
+      </div>
+      <p class="main-text">Prospera Rio — Conversa que vira faturamento</p>
+      <p>Use, ajuste, repita. Quem executa todo dia, vende todo dia.</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Texto copiado!</div>
+
+  <!-- Modal para iOS -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header" id="modalTitle">Copiar Template</div>
+      <div class="modal-content">
+        <div class="modal-text" id="modalText"></div>
+        <div class="modal-actions">
+          <button class="modal-btn btn-copy" id="btnCopyModal">Copiar Texto</button>
+          <button class="modal-btn btn-close" id="btnCloseModal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /***********************
+     * TAGS com acentuação *
+     ***********************/
+    const tagLabel = { "conversao":"conversão","urgencia":"urgência","social":"social","fomo":"fomo" };
+
+    /***********************
+     * TEMPLATES
+     ***********************/
+    const templates = {
+      "primeiro-contato":[
+        { title:'Abertura direto ao ponto', text:
+`Oi [NOME], vi que você demonstrou interesse no [PRODUTO]. É para [OCASIÃO]?
+Posso enviar agora duas opções mais vendidas ou prefere conhecer a versão premium?`,
+          usage:'Puxar conversa objetiva', tags:['conversao']
+        },
+        { title:'Sondagem com decisão A/B', text:
+`Para acertarmos rapidamente: você prefere [VARIAÇÃO A] (mais econômica) ou [VARIAÇÃO B] (mais completa)?
+Conforme sua escolha, já deixo separado em seu nome.`,
+          usage:'Descobrir preferência e conduzir', tags:['conversao']
+        },
+        { title:'Interesse + movimento real', text:
+`Olá, [NOME]. Nas últimas 24h entreguei 4 [PRODUTO].
+Para quando você precisa? Consigo atender hoje em [HORÁRIO] ou amanhã pela manhã.`,
+          usage:'Mostrar giro e oferecer horário', tags:['social','urgencia']
+        },
+        { title:'Indicação que acelera', text:
+`A [INDICADOR(A)] comentou com você. Clientes indicados por ela costumam fechar o [PACOTE COMPLETO].
+Apresento três opções e você escolhe com tranquilidade. Pode ser agora?`,
+          usage:'Prova social de indicação', tags:['social','conversao']
+        },
+        { title:'Hora de decidir com serenidade', text:
+`[NOME], percebi seu interesse no [PRODUTO]. Podemos concluir hoje?
+Tenho apenas [Nº] vagas/unidades com condição especial. Posso ajudá-lo(a) a garantir a sua?`,
+          usage:'Direto, com urgência respeitosa', tags:['urgencia','fomo','conversao']
+        },
+        { title:'Diagnóstico em 1 pergunta', text:
+`Para eu recomendar com precisão: o que é mais importante para você agora — [BENEFÍCIO 1] ou [BENEFÍCIO 2]?
+Com base nisso, envio a melhor opção em seguida.`,
+          usage:'Alinhamento de valor antes da oferta', tags:['conversao']
+        }
+      ],
+
+      "apresentacao":[
+        { title:'3 opções com âncora', text:
+`Para [OCASIÃO], indico:
+BÁSICO — R$ [VALOR]: resolve o essencial.
+COMPLETO — R$ [VALOR]: mais escolhido (equilíbrio).
+PREMIUM — R$ [VALOR]: máxima qualidade + garantia.
+Qual se ajusta melhor ao seu momento hoje?`,
+          usage:'Estruturar escolha com âncora', tags:['conversao','social']
+        },
+        { title:'Premium que justifica', text:
+`Pelo seu prazo, o [PREMIUM] é o único que entrega garantido.
+Inclui [DIF 1], [DIF 2], [DIF 3]. Se algo não ficar como esperado, ajusto sem custo.
+Investimento: R$ [VALOR]. Confirmo a data?`,
+          usage:'Defender premium por prazo/qualidade', tags:['conversao']
+        },
+        { title:'Comparação honesta', text:
+`Você pode encontrar valores menores. A diferença aqui está em [DIF 1], [DIF 2] e suporte pós-venda.
+Por isso o investimento é R$ [VALOR]. Prefere pagar menos agora ou garantir o resultado?`,
+          usage:'Ancoragem em valor percebido', tags:['conversao']
+        },
+        { title:'Economia de tempo', text:
+`Se fizer por conta, gasta ~[HORAS]h + R$ [CUSTO].
+Comigo sai R$ [VALOR], pronto em [PRAZO].
+Quanto vale resolver isso com tranquilidade hoje?`,
+          usage:'Tempo e paz como valor', tags:['conversao']
+        },
+        { title:'Apresentação com foco na solução', text:
+`[NOME], você busca [SOLUÇÃO DESEJADA]. Com o [PRODUTO/SERVIÇO], terá [BENEFÍCIO 1] e [BENEFÍCIO 2] sem atrito.
+Isso atende ao resultado que você espera?`,
+          usage:'Clareza de benefício', tags:['conversao']
+        },
+        { title:'Resumo executivo (CLAREZA)', text:
+`Objetivo: [RESULTADO].
+Opção recomendada: [PLANO].
+Por quê: [RAZÃO 1] • [RAZÃO 2] • [RAZÃO 3].
+Valor: R$ [VALOR]. Prazo: [PRAZO]. Próximo passo: confirmar forma de pagamento.`,
+          usage:'Executivos decidem com resumo', tags:['conversao']
+        }
+      ],
+
+      "precos":[
+        { title:'Preço com itens e CTA binária', text:
+`[NOME], R$ [VALOR] com:
+• [ITEM 1] • [ITEM 2] • [ITEM 3] + [GARANTIA]
+Pix com 5% off (R$ [COM DESCONTO]) ou cartão em 3x de R$ [PARCELA]?`,
+          usage:'Opção de pagamento clara', tags:['conversao']
+        },
+        { title:'Ancoragem de valor', text:
+`O valor normal é R$ [CHEIO]. Hoje, para você, R$ [COM DESCONTO].
+É uma condição objetiva. Deseja garantir?`,
+          usage:'Escassez/âncora sem apelo coloquial', tags:['urgencia','conversao']
+        },
+        { title:'Parcelamento que facilita', text:
+`Ficou pesado R$ [VALOR]? Posso parcelar em até [Nº]x de R$ [PARCELA] no cartão.
+Facilita para você? Se sim, envio o link imediatamente.`,
+          usage:'Reduzir fricção de entrada', tags:['conversao']
+        },
+        { title:'Desconto por tempo limitado', text:
+`O valor de R$ [VALOR] é válido pelas próximas 2h devido à alta procura.
+Depois retorna a R$ [NORMAL]. Deseja fechar agora?`,
+          usage:'Prazo objetivo', tags:['urgencia','fomo']
+        },
+        { title:'Última chance (preço especial)', text:
+`[NOME], última oportunidade de garantir o [PRODUTO] por R$ [VALOR]. A partir de amanhã, volta ao valor normal.
+Posso reservar agora?`,
+          usage:'Fechamento por janela de preço', tags:['urgencia','fomo','conversao']
+        },
+        { title:'Plano de entrada sem perder valor', text:
+`Se preferir começar menor: [PLANO BÁSICO] por R$ [VALOR MENOR].
+Entrega o essencial e permite evoluir depois sem prejuízo. Confirma com esse formato?`,
+          usage:'Baixar barreira sem desvalorizar', tags:['conversao']
+        }
+      ],
+
+      "objecoes":[
+        { title:'“Está caro” (reancorar valor)', text:
+`Entendo sua análise, [NOME]. Comparado a quê exatamente?
+Aqui você recebe [BENEFÍCIO 1] e [BENEFÍCIO 2] que não estão no pacote padrão do mercado.
+Prefere pagar menos agora ou garantir o resultado certo?`,
+          usage:'Tirar da régua de preço e voltar ao valor', tags:['conversao']
+        },
+        { title:'“Vou pensar” (com prazo sem pressão)', text:
+`Claro, faz sentido avaliar. Apenas um ponto: há [Nº] interessados e [Nº] unidades.
+Deseja que eu reserve por 1h para evitar reajuste?`,
+          usage:'Ajuda a decidir sem agressividade', tags:['fomo','urgencia']
+        },
+        { title:'“Não tenho dinheiro agora” (facilitar)', text:
+`Compreendo. Por isso ofereço parcelamento em até [Nº]x.
+A parcela de R$ [X] se ajusta ao seu orçamento?`,
+          usage:'Destravar fluxo de caixa do cliente', tags:['conversao']
+        },
+        { title:'“Preciso falar com meu sócio/parceiro”', text:
+`Perfeito. Resumo para facilitar: “[PRODUTO] por R$ [VALOR], resolve [PROBLEMA] e tem [GARANTIA]”.
+Que horas consigo seu retorno?`,
+          usage:'Equipar o decisor ausente', tags:['conversao']
+        },
+        { title:'“Sem tempo” (tempo como benefício)', text:
+`[NOME], entendo sua agenda. O [PRODUTO] foi pensado para economizar tempo.
+Em [TEMPO CURTO] você percebe o resultado. Faz sentido resolvermos hoje?`,
+          usage:'Inverter a objeção em valor', tags:['conversao']
+        },
+        { title:'Risco percebido (garantia objetiva)', text:
+`Para reduzir qualquer receio: se o resultado não atender ao combinado, ajusto sem custo dentro de [PRAZO DE GARANTIA].
+Podemos avançar com essa segurança?`,
+          usage:'Abaixar risco percebido', tags:['conversao']
+        }
+      ],
+
+      "fechamento":[
+        { title:'Fechamento direto e respeitoso', text:
+`[NOME], avançamos? Prefere Pix com desconto ou cartão parcelado?`,
+          usage:'Assumir venda com respeito', tags:['conversao']
+        },
+        { title:'Fechamento com resumo', text:
+`Ficamos assim: [PRODUTO COMPLETO] por R$ [VALOR], entrega em [PRAZO].
+Confirmo o pedido? Resposta rápida: sim ou não.`,
+          usage:'Pedir o sim sem rodeio', tags:['conversao']
+        },
+        { title:'Fechamento com benefício limitado', text:
+`Se confirmarmos nos próximos 10 minutos, incluo [BÔNUS] sem custo adicional.
+Prosseguimos?`,
+          usage:'Incentivo controlado', tags:['urgencia','conversao']
+        },
+        { title:'Alternativa de entrada', text:
+`Se o pacote completo não for o ideal hoje, podemos começar pelo [BÁSICO] por R$ [VALOR MENOR].
+Mantém avanço com custo menor. Faz sentido?`,
+          usage:'Plano B sem perder venda', tags:['conversao']
+        },
+        { title:'Escassez verificável', text:
+`Consigo sustentar essa condição por mais [TEMPO]. Após isso, o preço ou a vaga muda.
+Deseja confirmar agora?`,
+          usage:'Escassez real e verificável', tags:['urgencia','fomo','conversao']
+        },
+        { title:'Fechamento por agenda', text:
+`Tenho disponibilidade em [JANELA]. Prefere [OPÇÃO A] ou [OPÇÃO B]?
+Confirmo e envio o link de pagamento.`,
+          usage:'Fechar por calendário', tags:['conversao']
+        }
+      ],
+
+      "follow-up":[
+        { title:'Follow-up 1 (24h)', text:
+`[NOME], conseguiu avaliar o [PRODUTO]?
+A condição especial encerra hoje às 18h. Posso considerar sua confirmação?`,
+          usage:'Lembrete com prazo objetivo', tags:['urgencia']
+        },
+        { title:'Follow-up 2 (48h)', text:
+`[NOME], ficou alguma dúvida sobre o [PRODUTO]?
+Se for questão de valor, posso estudar um formato que se ajuste melhor.`,
+          usage:'Entender motivo do silêncio', tags:[]
+        },
+        { title:'Follow-up com prova social', text:
+`[NOME], compartilho um depoimento curto de quem já comprou:
+[DEPOIMENTO REAL E CURTO]
+Ajuda a visualizar o resultado na prática. Como você prefere seguir?`,
+          usage:'Prova social acionável', tags:['social']
+        },
+        { title:'Follow-up final (autoridade)', text:
+`[NOME], como não tive retorno, vou liberar sua vaga/condição para o próximo da lista.
+Se decidir mais à frente, fale comigo — posso verificar a melhor condição disponível no momento.`,
+          usage:'Encerrar sem perder relacionamento', tags:['fomo']
+        },
+        { title:'Follow-up com conteúdo de valor', text:
+`[NOME], encontrei um material sobre [TÓPICO RELEVANTE] que ajuda a [BENEFÍCIO].
+Envio para você avaliar em 1 minuto?`,
+          usage:'Reengajar com valor real', tags:['conversao']
+        },
+        { title:'Sequência progressiva (7 dias)', text:
+`[NOME], em 7 dias, os clientes que iniciam com [PRODUTO] costumam relatar [GANHO].
+Quer dar o primeiro passo hoje? Posso facilitar o pagamento.`,
+          usage:'Escalonar decisão por benefício temporal', tags:['conversao']
+        }
+      ],
+
+      "pos-venda":[
+        { title:'Confirmação de recebimento', text:
+`[NOME], seu pedido [Nº] foi entregue. Tudo certo por aí?
+Se precisar de algo, fico à disposição.`,
+          usage:'Garantir satisfação', tags:[]
+        },
+        { title:'Pedido de feedback', text:
+`[NOME], como foi sua experiência com o [PRODUTO]?
+De 0 a 10, que nota você daria? Sua opinião orienta melhorias.`,
+          usage:'Coletar prova social', tags:['social']
+        },
+        { title:'Indicação com incentivo', text:
+`[NOME], que bom que ficou satisfeito(a). Se indicar alguém que fechar, você recebe [DESCONTO/BRINDE] na próxima compra.
+Vem alguém à mente?`,
+          usage:'Programa de indicação', tags:['social','conversao']
+        },
+        { title:'Recompra inteligente', text:
+`[NOME], faz [TEMPO] da sua compra do [PRODUTO] — normalmente é quando precisa repor.
+Deseja que eu envie novamente? Consigo manter o mesmo valor.`,
+          usage:'Fidelização por hábito', tags:['conversao']
+        },
+        { title:'Convite para Grupo VIP', text:
+`[NOME], deu tudo certo com seu [PRODUTO]. Tenho um grupo com ofertas e dicas exclusivas.
+Deseja o link?`,
+          usage:'Comunidade de valor', tags:['social','conversao']
+        },
+        { title:'Up-sell pós-resultado', text:
+`Parabéns pelo resultado com [PRODUTO]. Para avançar, muitos clientes combinam com [COMPLEMENTAR] e potencializam [BENEFÍCIO].
+Se fizer agora, libero [CONDIÇÃO ESPECIAL]. Quer aproveitar?`,
+          usage:'Escalonar valor após sucesso', tags:['conversao']
+        }
+      ],
+
+      "ofertas":[
+        { title:'Oferta relâmpago', text:
+`OFERTA RELÂMPAGO (até 18h):
+[PRODUTO] de R$ [NORMAL] por R$ [OFERTA].
+Últimas [Nº] unidades. Confirmo para você?`,
+          usage:'Pico de vendas com janela clara', tags:['urgencia','fomo']
+        },
+        { title:'Combo inteligente (ticket médio)', text:
+`Na compra de [PRODUTO A], o [PRODUTO B] sai com 50% OFF.
+Os dois juntos resolvem [PROBLEMA COMPLETO].
+Aproveitamos?`,
+          usage:'Aumentar ticket com sentido', tags:['conversao']
+        },
+        { title:'Oferta sazonal', text:
+`Semana do [EVENTO]: [PRODUTO] por R$ [VALOR] (de R$ [NORMAL]).
+Se desejar, já deixo separado em seu nome.`,
+          usage:'Aproveitar o calendário', tags:['urgencia']
+        },
+        { title:'Queima de estoque', text:
+`ÚLTIMAS unidades do [PRODUTO]: de R$ [NORMAL] por R$ [QUEIMA].
+Depois, apenas o modelo novo (com valor atualizado).
+Confirma agora?`,
+          usage:'Zerar estoque com transparência', tags:['urgencia','fomo']
+        },
+        { title:'Oferta exclusiva (1:1)', text:
+`[NOME], para você, condição especial: [PRODUTO] com [DESCONTO]% ou [BÔNUS].
+É por tempo limitado. Envio os detalhes?`,
+          usage:'Exclusividade verdadeira', tags:['urgencia','conversao']
+        },
+        { title:'Lançamento com bônus', text:
+`Lançamento do [PRODUTO NOVO]: clientes atuais ganham [BÔNUS] se confirmarem até [DATA/HORA].
+Posso ativar no seu nome?`,
+          usage:'Premiar clientes ativos', tags:['conversao','urgencia']
+        }
+      ],
+
+      "fomo":[
+        { title:'Aviso de reajuste', text:
+`[NOME], informo que o [PRODUTO] terá reajuste amanhã.
+Se fechar hoje, mantém R$ [ATUAL].
+Deseja confirmar com o valor atual?`,
+          usage:'Evitar perda concreta', tags:['fomo','urgencia']
+        },
+        { title:'Prioridade silenciosa', text:
+`Você demonstrou interesse primeiro, então estou oferecendo antes de publicar nos stories.
+Mantenho R$ [PREÇO] até [HORA]. Confirmo para você?`,
+          usage:'Exclusividade controlada', tags:['fomo','social']
+        },
+        { title:'Dupla decisão (binária)', text:
+`Para avançarmos: prefere Pix com desconto ou cartão 3x?
+Entrega hoje à tarde ou amanhã cedo?`,
+          usage:'Acelerar decisão com binárias', tags:['fomo','conversao']
+        },
+        { title:'Prova social ao vivo', text:
+`Acabei de confirmar 1 pedido às [HORA]. Restam [RESTO] vagas para hoje.
+Deseja aproveitar?`,
+          usage:'Movimento real', tags:['fomo','social']
+        },
+        { title:'Bônus que expira', text:
+`Confirmando até [HORA], incluo [BÔNUS] (vale R$ [X]).
+Após esse horário, segue apenas o valor normal.
+Aproveitamos com o bônus?`,
+          usage:'Prazo no benefício', tags:['fomo','urgencia','conversao']
+        },
+        { title:'Lista de espera transparente', text:
+`Há fila de espera para [PRODUTO]. Como você está priorizado(a), consigo encaixar até [HORA/DATA].
+Confirmo?`,
+          usage:'Escassez sem pressão indevida', tags:['fomo','conversao']
+        }
+      ],
+
+      "tecnicas-avancadas":[
+        { title:'Números que dão segurança', text:
+`Últimos 30 dias:
+• [Nº] pedidos entregues
+• [Nº] avaliações 9–10
+• Prazo médio: [HORAS]h
+Esse é o motivo do investimento R$ [VALOR]. Seguimos?`,
+          usage:'Autoridade objetiva', tags:['social','conversao']
+        },
+        { title:'Corte de indecisão', text:
+`[NOME], para respeitar seu tempo: se for prioridade, fecho agora e entrego em [PRAZO].
+Se não for o momento, libero a vaga e retorno quando for melhor para você.
+Como prefere proceder?`,
+          usage:'Decisão limpa e respeitosa', tags:['conversao']
+        },
+        { title:'Upgrade imediato (upsell honesto)', text:
+`Você escolheu o BÁSICO. Com +R$ [DIF], migra para o COMPLETO (ganha [BENEFÍCIO EXTRA]).
+Muitos fazem upgrade depois e sai mais caro. Prefere já garantir o completo?`,
+          usage:'Evitar retrabalho e custo futuro', tags:['conversao']
+        },
+        { title:'Cross-sell inteligente', text:
+`Quem adquire [PRODUTO PRINCIPAL] costuma levar [COMPLEMENTAR] porque [SINERGIA].
+Se adicionar agora, faço por R$ [VALOR] (de R$ [NORMAL]).
+Incluo para você?`,
+          usage:'Aumentar valor percebido do conjunto', tags:['conversao']
+        },
+        { title:'Técnica do “Simples Assim”', text:
+`Para ter o [PRODUTO/SERVIÇO]: 1) Você aponta a necessidade. 2) Eu envio as opções. 3) Você escolhe, e pronto.
+Começamos agora?`,
+          usage:'Remover fricção e etapas mentais', tags:['conversao']
+        },
+        { title:'Prova por amostra (microcompra)', text:
+`Posso liberar uma amostra/diagnóstico rápido de [X minutos/itens].
+Se fizer sentido, avançamos para o pacote completo.
+Prefere assim?`,
+          usage:'Destravar decisão com risco baixo', tags:['conversao']
+        }
+      ]
+    };
+
+    /***********************
+     * DETECÇÃO DE DISPOSITIVO
+     ***********************/
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    }
+
+    function isAndroid() {
+      return /Android/.test(navigator.userAgent);
+    }
+
+    function isMobile() {
+      return isIOS() || isAndroid() || /Mobi|Android/i.test(navigator.userAgent);
+    }
+
+    /***********************
+     * RENDERIZAÇÃO
+     ***********************/
+    function loadContent(){
+      const content = document.getElementById('content');
+      content.innerHTML = '';
+      Object.entries(templates).forEach(([category, list])=>{
+        const section = createSection(category, list);
+        content.appendChild(section);
+      });
+    }
+
+    function titleByCategory(category){
+      return {
+        "primeiro-contato":"Primeiro Contato que Desperta Interesse",
+        "apresentacao":"Apresentação que Converte Rápido",
+        "precos":"Preços que Vendem com Lógica",
+        "objecoes":"Quebrando Objeções na Hora",
+        "fechamento":"Fechamento que Funciona",
+        "follow-up":"Follow-up que Reativa Vendas",
+        "pos-venda":"Pós-venda que Traz Indicação",
+        "ofertas":"Ofertas que Ninguém Resiste",
+        "fomo":"FOMO — Perdeu, Pagou Mais",
+        "tecnicas-avancadas":"Técnicas que Profissionais Usam Todo Dia"
+      }[category] || category;
+    }
+
+    function createSection(category, templateList){
+      const section = document.createElement('div');
+      section.className = 'section';
+      section.setAttribute('data-category', category);
+      section.innerHTML = `
+        <div class="section-header">
+          <div class="section-title">${titleByCategory(category)}</div>
+          <div class="section-icon">▼</div>
+        </div>
+        <div class="section-content">
+          ${templateList.map(t => createTemplateCard(t)).join('')}
+        </div>
+      `;
+      return section;
+    }
+
+    function tagsHtmlFrom(t){
+      if(!t.tags || !t.tags.length) return '';
+      return `<div class="template-tags">${
+        t.tags.map(tagKey=>{
+          const label = tagLabel[tagKey] || tagKey;
+          return `<span class="tag ${tagKey}">${label}</span>`;
+        }).join('')
+      }</div>`;
+    }
+
+    function createTemplateCard(t){
+      const id = Math.random().toString(36).substr(2, 9);
+      return `
+        <div class="template-card">
+          <div class="template-header">
+            <div class="template-title">${tagsHtmlFrom(t)}${t.title}</div>
+            <button class="copy-btn" data-template-id="${id}" data-template-title="${t.title}">Copiar</button>
+          </div>
+          <div class="template-content">
+            <div class="template-text" id="${id}">${t.text}</div>
+            <div class="template-usage"><span class="usage-label">Como usar:</span> ${t.usage}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    /***********************
+     * CÓPIA - COMPATÍVEL COM iOS
+     ***********************/
+    function copyTemplate(templateId, title, button) {
+      const templateText = document.getElementById(templateId).textContent;
+      
+      if (isIOS()) {
+        // Para iOS, usar modal
+        showCopyModal(templateText, title, button);
+      } else {
+        // Para outros dispositivos, tentar clipboard API primeiro
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(templateText).then(() => {
+            showCopySuccess(button);
+            showToast();
+          }).catch(() => {
+            fallbackCopy(templateText, button);
+          });
+        } else {
+          fallbackCopy(templateText, button);
+        }
+      }
+    }
+
+    function showCopyModal(text, title, button) {
+      const modal = document.getElementById('modalOverlay');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalText = document.getElementById('modalText');
+      
+      modalTitle.textContent = title;
+      modalText.textContent = text;
+      modal.style.display = 'flex';
+      
+      // Selecionar texto automaticamente
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(modalText);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+
+    function fallbackCopy(text, button) {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-9999px';
+      textArea.style.top = '-9999px';
+      textArea.setAttribute('readonly', '');
+      document.body.appendChild(textArea);
+      textArea.select();
+      
+      try {
+        const success = document.execCommand('copy');
+        if (success) {
+          showCopySuccess(button);
+          showToast();
+        } else {
+          throw new Error('Copy command failed');
+        }
+      } catch (err) {
+        // Fallback para seleção manual
+        alert('Para copiar: pressione e segure no texto, depois toque em "Copiar".');
+      } finally {
+        document.body.removeChild(textArea);
+      }
+    }
+
+    function showCopySuccess(button){
+      const original = button.innerHTML;
+      button.innerHTML = 'Copiado!';
+      button.classList.add('copied');
+      setTimeout(() => {
+        button.innerHTML = original;
+        button.classList.remove('copied');
+      }, 2000);
+    }
+
+    function showToast(){
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    /***********************
+     * EVENT LISTENERS
+     ***********************/
+    document.addEventListener('DOMContentLoaded', () => {
+      loadContent();
+      
+      // Navigation
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const action = this.getAttribute('data-action');
+          if (action === 'showAll') {
+            showAll(this);
+          } else {
+            filterSection(this, action);
+          }
+        });
+      });
+      
+      // Copy buttons
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('copy-btn')) {
+          const templateId = e.target.getAttribute('data-template-id');
+          const title = e.target.getAttribute('data-template-title');
+          copyTemplate(templateId, title, e.target);
+        }
+      });
+      
+      // Section toggle
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('.section-header')) {
+          const section = e.target.closest('.section');
+          section.classList.toggle('collapsed');
+        }
+      });
+      
+      // Search
+      document.getElementById('searchInput').addEventListener('input', function() {
+        searchTemplates(this.value);
+      });
+      
+      // Modal events
+      document.getElementById('btnCopyModal').addEventListener('click', function() {
+        const modalText = document.getElementById('modalText').textContent;
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(modalText).then(() => {
+            closeModal();
+            showToast();
+          }).catch(() => {
+            // Texto já está selecionado, usuário pode copiar manualmente
+            alert('Texto selecionado! Toque e segure para copiar.');
+          });
+        } else {
+          alert('Texto selecionado! Toque e segure para copiar.');
+        }
+      });
+      
+      document.getElementById('btnCloseModal').addEventListener('click', closeModal);
+      
+      document.getElementById('modalOverlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeModal();
+        }
+      });
+    });
+
+    function closeModal() {
+      document.getElementById('modalOverlay').style.display = 'none';
+    }
+
+    /***********************
+     * NAVIGATION & SEARCH
+     ***********************/
+    function setBannersVisible(show){
+      const promo = document.querySelector('.promo');
+      const inst = document.querySelector('.instructions');
+      [promo, inst].forEach(el => {
+        if(el) el.classList.toggle('hidden', !show);
+      });
+    }
+
+    function scrollToContent(){
+      const content = document.getElementById('content');
+      const nav = document.querySelector('.nav-container');
+      const offset = (nav ? nav.offsetHeight : 0) + 8;
+      const top = content.getBoundingClientRect().top + window.pageYOffset - offset;
+      
+      // Scroll suave compatível com iOS
+      if ('scrollBehavior' in document.documentElement.style) {
+        window.scrollTo({ top, behavior: 'smooth' });
+      } else {
+        window.scrollTo(0, top);
+      }
+    }
+
+    function showAll(btn){
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      if(btn) btn.classList.add('active');
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'block');
+      setBannersVisible(true);
+    }
+
+    function filterSection(btn, category){
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.section').forEach(s => {
+        s.style.display = (s.getAttribute('data-category') === category) ? 'block' : 'none';
+      });
+      setBannersVisible(false);
+      scrollToContent();
+    }
+
+    function searchTemplates(query){
+      const term = query.toLowerCase().trim();
+      const sections = document.querySelectorAll('.section');
+      
+      if(term === ''){
+        sections.forEach(s => {
+          s.style.display = 'block';
+          s.querySelectorAll('.template-card').forEach(c => c.style.display = 'block');
+        });
+        setBannersVisible(true);
+        return;
+      }
+      
+      setBannersVisible(false);
+      
+      sections.forEach(s => {
+        let hasVisible = false;
+        s.querySelectorAll('.template-card').forEach(c => {
+          const title = c.querySelector('.template-title').textContent.toLowerCase();
+          const text = c.querySelector('.template-text').textContent.toLowerCase();
+          const usage = c.querySelector('.template-usage').textContent.toLowerCase();
+          
+          if(title.includes(term) || text.includes(term) || usage.includes(term)){
+            c.style.display = 'block';
+            hasVisible = true;
+          } else {
+            c.style.display = 'none';
+          }
+        });
+        s.style.display = hasVisible ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
